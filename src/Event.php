@@ -10,8 +10,11 @@ class Event
     {
         if (!isset($this->events[$event_name])) {
             $this->events[$event_name] = [$callback];
+        } else {
+            $this->events[$event_name][] = $callback;
         }
 
+        dump($this->events[$event_name]);
         return function () use ($event_name, $callback) {
 
             $filter = function ($value) use ($callback) {
