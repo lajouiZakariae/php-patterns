@@ -26,11 +26,11 @@ class Event
         return !$this->eventExists($event_name);
     }
 
-    public function dispatch(string $event_name)
+    public function dispatch(string $event_name, ...$args)
     {
         if ($this->eventExists($event_name)) {
             $handler = $this->events[$event_name];
-            $handler->fire();
+            $handler->fire($args);
         }
     }
 

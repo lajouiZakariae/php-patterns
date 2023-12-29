@@ -12,10 +12,10 @@ class Handler
     ) {
     }
 
-    public function fire(): void
+    public function fire($args): void
     {
         $cb = $this->callback;
-        $cb();
+        $cb(...$args);
         $this->increment();
     }
 
