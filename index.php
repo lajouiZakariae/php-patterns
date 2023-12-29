@@ -1,6 +1,6 @@
 <?php
 
-use PHPPatterns\Event;
+use PHPPatterns\Events\Event;
 
 require './vendor/autoload.php';
 
@@ -10,20 +10,14 @@ $unsub = $event->on('user', function () {
     dump('hello world');
 });
 
-$sec_unsub = $event->on('user', function () {
-    dump('hello world from listener two');
-});
-
 dump($event);
 
-$event->fire('user');
+$event->dispatch('user');
 
-$event->fire('user');
+dump($event->callCount('user')); // 1
+
+$event->dispatch('user');
+
+dump($event->callCount('user')); // 2
 
 $unsub();
-
-$sec_unsub();
-
-$event->fire('user');
-
-dump($event);
