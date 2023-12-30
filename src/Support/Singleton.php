@@ -1,6 +1,6 @@
 <?php
 
-namespace PHPPatterns\support;
+namespace PHPPatterns\Support;
 
 trait Singleton
 {

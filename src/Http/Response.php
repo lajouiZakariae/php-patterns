@@ -3,7 +3,7 @@
 namespace PHPPatterns\Http;
 
 use Header;
-use PHPPatterns\support\Singleton;
+use PHPPatterns\Support\Singleton;
 use PHPPatterns\Views\View;
 
 class Response
