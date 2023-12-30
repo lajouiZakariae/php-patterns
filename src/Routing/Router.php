@@ -55,7 +55,7 @@ class Router
         return $route;
     }
 
-    private function resolve(): string|array|View
+    private function resolve(): string|array|View|Response
     {
         $request = new Request;
 
@@ -76,6 +76,18 @@ class Router
     {
         $content = $this->resolve();
 
-        dump(Response::make($content));
+        $response = null;
+
+        if ($content instanceof Response) {
+            $response = $content;
+        } else {
+            $response = Response::make($content);
+        }
+
+        foreach ($response->getHeaders() as $header => $value) {
+            header($header . ': ' . $value);
+        };
+
+        echo $response->getBody();
     }
 }

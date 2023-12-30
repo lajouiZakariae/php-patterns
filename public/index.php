@@ -3,7 +3,15 @@
 use PHPPatterns\Routing\Router;
 use PHPPatterns\Views\View;
 
-require './vendor/autoload.php';
+$config = require('../config.php');
+
+function base_path(string $path = ''): string
+{
+    global $config;
+    return $config['BASE_PATH'] . ($path === '' ? '' : '/') . $path;
+}
+
+require '../vendor/autoload.php';
 
 $router = new Router;
 
@@ -16,6 +24,7 @@ $router->get('/about', function () {
 })->name('about');
 
 $router->get('/hello', function () {
+    // return ['hello world'];
     return View::make('index', ['msg' => 'hello']);
 })->name('hello');
 

@@ -2,7 +2,7 @@
 
 namespace PHPPatterns\Http;
 
-use Exception;
+use Header;
 use PHPPatterns\support\Singleton;
 use PHPPatterns\Views\View;
 
@@ -24,12 +24,57 @@ class Response
             $this->body = $content->render();
         } elseif (is_array($content)) {
             $this->body = json_encode($content);
+
+            $this->header('Content-Type', 'application/json');
         }
     }
 
+    public function getHeaders(): array
+    {
+        return $this->headers;
+    }
+
+    public function getBody(): string
+    {
+        return $this->body;
+    }
+
+    /**
+     * Set status code
+     */
     public function status(int $status_code)
     {
         $this->status_code = $status_code;
+        return $this;
+    }
+
+    /**
+     * Set a Header
+     * @param Header  $header
+     */
+    public function header($header, string $value)
+    {
+        $this->headers[$header] = $value;
+        return $this;
+    }
+
+
+    /**
+     * Set Accept header
+     */
+    public function headerAccept(string $value)
+    {
+        $this->header(Header::ACCEPT,  $value);
+        return $this;
+    }
+
+    /**
+     * Set Accept header
+     */
+    public function headerContentType(string $value)
+    {
+        $this->header(Header::ACCEPT, $value);
+        return $this;
     }
 
     public static function make(View|array|string $content): Response
