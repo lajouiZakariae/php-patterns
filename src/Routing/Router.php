@@ -4,13 +4,16 @@ namespace PHPPatterns\Routing;
 
 use PHPPatterns\Http\Request;
 use PHPPatterns\Http\Response;
+use PHPPatterns\Support\Singleton;
 use PHPPatterns\Views\View;
 
 class Router
 {
+    use Singleton;
+
     private $routes  = [];
 
-    function get(string $path, $callback): Route
+    public function get(string $path, $callback): Route
     {
         $route = new Route('get', $path, $callback);
 
