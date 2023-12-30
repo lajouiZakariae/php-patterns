@@ -45,22 +45,22 @@ class Request
 
     function paramExists(string $name): bool
     {
-        return isset($_GET[$name]);
+        return isset($this->params[$name]);
     }
 
     function inputExists(string $name): bool
     {
-        return isset($_POST[$name]);
+        return isset($this->inputs[$name]);
     }
 
     function param(string $name): mixed
     {
-        return $this->paramExists($name) ? $_GET[$name] : null;
+        return $this->paramExists($name) ? $this->params[$name] : null;
     }
 
     function input(string $name): mixed
     {
-        return $this->inputExists($name) ? $_POST[$name] : null;
+        return $this->inputExists($name) ? $this->inputs[$name] : null;
     }
 
     function paramIsInteger(string $name): bool
