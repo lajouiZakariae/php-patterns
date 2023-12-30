@@ -19,6 +19,16 @@ class Route
         return $this;
     }
 
+    function getPath(): string
+    {
+        return $this->path;
+    }
+
+    function getName(): string
+    {
+        return $this->name;
+    }
+
     function fire(): mixed
     {
         return call_user_func($this->callback);

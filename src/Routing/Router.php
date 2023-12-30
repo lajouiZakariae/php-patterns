@@ -72,6 +72,29 @@ class Router
         return $route->fire();
     }
 
+    public function go(string $path): void
+    {
+        header('Location: ' . $path);
+        exit;
+    }
+
+    public function to(string $route_name): void
+    {
+        /** @var ?Route $found_route */
+        $found_route = null;
+
+        foreach ($this->routes as $route_list) {
+
+            foreach ($route_list as $route) {
+                if ($route->getName() === $route_name) {
+                    $found_route = $route;
+                }
+            }
+        }
+
+        $found_route ? $this->go($found_route->getPath()) : null;
+    }
+
     public function response()
     {
         $content = $this->resolve();

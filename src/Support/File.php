@@ -79,10 +79,16 @@ class File
         }
     }
 
-    public static function makeDirectory(string $path): void
+    public static function makeDirectory(string $path): bool
     {
         $paths = null;
         $seperator = null;
+
+        if (!str_contains($path, '/') && !str_contains($path, '.')) {
+            if (!is_dir($path)) {
+                return mkdir($path);
+            }
+        }
 
         /**
          * Remove . and / from the begining and from the end
@@ -118,7 +124,6 @@ class File
         }
 
         dump($directories_paths);
-
-        // if (!is_dir($path)) mkdir($path);
+        return true;
     }
 }

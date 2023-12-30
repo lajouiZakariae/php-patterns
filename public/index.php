@@ -14,22 +14,19 @@ function base_path(string $path = ''): string
 
 require '../vendor/autoload.php';
 
-// $router = new Router;
+$router = new Router;
 
-// $router->get('/home', function () {
-//     return 'hello world';
-// })->name('index');
+$router->get('/home', function () {
+    return 'hello world';
+})->name('index');
 
-// $router->get('/about', function () {
-//     return 'About us';
-// })->name('about');
+$router->get('/about', function () {
+    return 'About us';
+})->name('about');
 
-// $router->get('/hello', function () {
-//     // return ['hello world'];
-//     return View::make('index', ['msg' => 'hello']);
-// })->name('hello');
+$router->get('/hello', function () {
+    // return View::make('index', ['msg' => 'hello']);
+})->name('hello');
 
 
-// $router->response();
-
-File::makeDirectory('.hello.world.zakariae');
+$router->response();
