@@ -27,6 +27,11 @@ class Request
         $this->setPath();
     }
 
+    function method(): string
+    {
+        return strtolower($_SERVER['REQUEST_METHOD']);
+    }
+
     function setPath()
     {
         $path = parse_url($_SERVER['REQUEST_URI'])["path"];
