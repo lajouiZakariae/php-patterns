@@ -6,7 +6,11 @@ try {
 } catch (\Throwable $th) {
     throw $th;
 }
-
+function connect(): PDO
+{
+    global $pdo;
+    return $pdo;
+}
 
 function sql($q, ?array $args = null): \PDOStatement
 {

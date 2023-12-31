@@ -25,6 +25,6 @@ class User
             ]
         );
 
-        dd($result);
+        return intval(connect()->lastInsertId());
     }
 }

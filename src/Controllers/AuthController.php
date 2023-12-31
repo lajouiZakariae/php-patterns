@@ -2,76 +2,81 @@
 
 namespace PHPPatterns\Controllers;
 
+use PHPPatterns\Auth\EmailVerificationRequest;
 use PHPPatterns\Auth\User;
 use PHPPatterns\Http\Request;
 use PHPPatterns\Http\Response;
+use PHPPatterns\Support\Session;
 use PHPPatterns\Views\View;
 
 class AuthController
 {
     public function login_page(Request $request)
     {
-        return View::make("admin/login");
+        return View::make('admin/login');
     }
 
     public function login(Request $request)
     {
-        $email    = $request->input("email");
-        $password = $request->input("password");
+        $email    = $request->input('email');
+        $password = $request->input('password');
 
 
         $isEmail         = filter_var($email, FILTER_VALIDATE_EMAIL);
-        $isValidPassword = preg_match("/[a-zA-Z0-9@_-]+/", $password) !== false;
+        $isValidPassword = preg_match('/[a-zA-Z0-9@_-]+/', $password) !== false;
 
         if (
             !$isEmail
             // || $isValidPassword
         ) {
-            return ["msg" => "not valid data"];
+            return ['msg' => 'not valid data'];
         }
 
         return [$email, $password];
-        // if (Auth::attempt(["email" => $email, "password" => $password])) {
-        //     return ["loggedIn" => true, "redirect" => "/admin/products"];
+        // if (Auth::attempt(['email' => $email, 'password' => $password])) {
+        //     return ['loggedIn' => true, 'redirect' => '/admin/products'];
         // } else {
         // }
     }
 
     public static function register_page(Request $request)
     {
-        return View::make("admin/register");
+        return View::make('admin/register');
     }
 
     public static function register(Request $request)
     {
-        $email = $request->input("email");
+        $email = $request->input('email');
 
-        if (User::exists($email)) {
-            return ["exists" => true];
-        }
-
-        // return [$email];
-
-        $userID = User::save([
-            "email" => $request->input("email"),
-            "password" => password_hash($request->input("password"), PASSWORD_DEFAULT),
-            "verified" => 0,
-        ]);
-
-        // if ($userID) {
-        //     $requestObj = EmailVerificationRequest::save($userID);
-        //     $emailVerificationLink = 'http://mvc.test/auth/verify_email.php?id='
-        //         . $requestObj["id"]
-        //         . '&verif_code='
-        //         . $requestObj["verif_code"];
+        // if (User::exists($email)) {
+        //     return ['exists' => true];
         // }
 
-        // Session::set("loggedIn", true);
-        // Session::set("userId", $userID);
+        $userID = User::save([
+            'email' => $request->input('email'),
+            'password' => password_hash($request->input('password'), PASSWORD_DEFAULT),
+            'verified' => 0,
+            'role_id' => 1
+        ]);
 
-        // $response->json(
-        //     ["loggedIn" => true, "redirect" => "/admin/products"]
-        // );
+
+        if ($userID) {
+            $requestObj = EmailVerificationRequest::save($userID);
+
+            $emailVerificationLink = 'http://event_sys.test/admin/verify_email?id='
+                . $requestObj['id']
+                . '&verif_code='
+                . $requestObj['verif_code'];
+
+            // Send Email
+            // dd($requestObj);
+        }
+
+        Session::set("loggedIn", true);
+        Session::set("userId", $userID);
+
+
+        return ["loggedIn" => true, "redirect" => "/admin/products"];
     }
 
     // public static function logout(Response $response)
