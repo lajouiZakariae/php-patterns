@@ -39,6 +39,11 @@ class Response
         return $this->body;
     }
 
+    public function getStatusCode(): string
+    {
+        return $this->status_code;
+    }
+
     /**
      * Set status code
      */
@@ -80,5 +85,10 @@ class Response
     public static function make(View|array|string $content): Response
     {
         return self::instance($content);
+    }
+
+    public static function redirect(string $url = null): Redirect
+    {
+        return new Redirect($url);
     }
 }

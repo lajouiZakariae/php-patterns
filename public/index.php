@@ -14,26 +14,4 @@ function base_path(string $path = ''): string
 
 require '../vendor/autoload.php';
 
-$router = Router::instance();
-
-$router->get('/home', function () {
-    return 'hello world';
-})->name('index');
-
-
-$router->get('/about', function () {
-    return 'About Us';
-});
-
-$router->get('/about', function () {
-
-    return 'About us';
-})->name('about');
-
-$router->get('/hello', function () {
-
-    return View::make('index', ['msg' => 'hello']);
-})->name('hello');
-
-
-$router->response();
+require '../web.php';

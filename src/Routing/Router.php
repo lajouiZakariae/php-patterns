@@ -2,6 +2,7 @@
 
 namespace PHPPatterns\Routing;
 
+use PHPPatterns\Http\Redirect;
 use PHPPatterns\Http\Request;
 use PHPPatterns\Http\Response;
 use PHPPatterns\Support\Singleton;
@@ -12,6 +13,13 @@ class Router
     use Singleton;
 
     private $routes  = [];
+
+    private $_404 = null;
+
+    public function getRoutes(): array
+    {
+        return $this->routes;
+    }
 
     public function get(string $path, $callback): Route
     {
@@ -58,7 +66,12 @@ class Router
         return $route;
     }
 
-    private function resolve(): string|array|View|Response
+    function fallback($callback): void
+    {
+        $this->_404 = $callback;
+    }
+
+    private function resolve(): string|array|View|Response|Redirect
     {
         $request = new Request;
 
@@ -72,7 +85,16 @@ class Router
             $route = $this->routes[$method][$path];
         }
 
-        return $route->fire();
+        if ($route) {
+            return $route->fire();
+        }
+
+        if ($this->_404) {
+            $_404 = $this->_404;
+            return $_404();
+        }
+
+        return "<h2>404 Page Not Found</h2>";
     }
 
     public function go(string $path): void
@@ -98,11 +120,16 @@ class Router
         $found_route ? $this->go($found_route->getPath()) : null;
     }
 
-    public function response()
+    public function respond()
     {
         $content = $this->resolve();
 
         $response = null;
+
+        if ($content instanceof Redirect) {
+            header('Location: ' . $content->getDestination());
+            exit;
+        }
 
         if ($content instanceof Response) {
             $response = $content;
@@ -113,6 +140,8 @@ class Router
         foreach ($response->getHeaders() as $header => $value) {
             header($header . ': ' . $value);
         };
+
+        http_response_code($response->getStatusCode());
 
         echo $response->getBody();
     }

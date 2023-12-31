@@ -16,7 +16,7 @@ class Handler
     {
         $cb = $this->callback;
         $cb(...$args);
-        $this->increment();
+        $this->incrementCalls();
     }
 
     public function getCallback(): callable
@@ -29,12 +29,7 @@ class Handler
         return $this->count;
     }
 
-    private function increment(): void
-    {
-        $this->count++;
-    }
-
-    private function decrement(): void
+    private function incrementCalls(): void
     {
         $this->count++;
     }

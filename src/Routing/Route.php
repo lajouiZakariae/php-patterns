@@ -4,7 +4,7 @@ namespace PHPPatterns\Routing;
 
 class Route
 {
-    private string $name;
+    private ?string $name = null;
 
     public function __construct(
         private string $method,
@@ -24,7 +24,7 @@ class Route
         return $this->path;
     }
 
-    function getName(): string
+    function getName(): ?string
     {
         return $this->name;
     }
