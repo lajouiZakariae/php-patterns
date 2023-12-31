@@ -2,6 +2,8 @@
 
 namespace PHPPatterns\Routing;
 
+use PHPPatterns\Http\Request;
+
 class Route
 {
     private ?string $name = null;
@@ -31,6 +33,10 @@ class Route
 
     function fire(): mixed
     {
+        if (is_array($this->callback)) {
+            [$class, $method] = $this->callback;
+            return call_user_func([new $class(), $method], new Request);
+        }
         return call_user_func($this->callback);
     }
 }

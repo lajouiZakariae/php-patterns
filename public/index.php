@@ -5,6 +5,7 @@ use PHPPatterns\Support\File;
 use PHPPatterns\Views\View;
 
 $config = require('../config.php');
+$config = require('../functions.php');
 
 function base_path(string $path = ''): string
 {

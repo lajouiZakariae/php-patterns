@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="/public/css/bootstrap.min.css" />
+        <title>Login</title>
+    </head>
+    <body>
+        <form
+            id="loginForm"
+            action="/admin/register"
+            method="POST"
+            style="width: 90%; max-width: 570px"
+            class="mx-auto mt-5"
+        >
+            <h1 class="text-center mb-4">Login</h1>
+            <div class="form-group mt-2">
+                <input
+                    type="email"
+                    class="form-control"
+                    name="email"
+                    id="email"
+                    placeholder="Enter email"
+                />
+                <div class="form-text text-danger" style="height: 16px"></div>
+            </div>
+            <div class="form-group mt-2">
+                <input
+                    type="password"
+                    class="form-control"
+                    name="password"
+                    id="password"
+                    placeholder="Password"
+                />
+                <div class="form-text text-danger" style="height: 16px"></div>
+            </div>
+            <div class="form-group mt-2">
+                <input
+                    type="password"
+                    class="form-control"
+                    name="c_password"
+                    id="c_password"
+                    placeholder="Confirm Your Password Please"
+                />
+                <div class="form-text text-danger" style="height: 16px"></div>
+            </div>
+            <div class="form-group mt-2">
+                <button type="submit" class="btn btn-primary w-100">
+                    Submit
+                </button>
+            </div>
+        </form>
+
+        <script src="/public/js/bootstrap.bundle.min.js"></script>
+        <script src="/public/js/app.js"></script>
+    </body>
+</html>

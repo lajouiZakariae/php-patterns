@@ -17,7 +17,7 @@ class ViewLoader
     private function __construct()
     {
         $this->loader = new FilesystemLoader(base_path('views'));
-        $this->twig = new Environment($this->loader, ['cache' => base_path('/cache/views')]);
+        $this->twig = new Environment($this->loader, []);
     }
 
     public function twig(): Environment

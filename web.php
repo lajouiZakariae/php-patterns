@@ -1,10 +1,19 @@
 <?php
 
+use PHPPatterns\Controllers\AuthController;
 use PHPPatterns\Http\Response;
 use PHPPatterns\Routing\Router;
 use PHPPatterns\Views\View;
 
 $router = Router::instance();
+
+$router->get('/admin/login', [AuthController::class, 'login_page'])->name('login');
+
+$router->post('/admin/login', [AuthController::class, 'login'])->name('login');
+
+$router->get('/admin/register', [AuthController::class, 'register_page'])->name('register');
+
+$router->post('/admin/register', [AuthController::class, 'register'])->name('register');
 
 $router->get('/html', function () {
     return 'hello world';
