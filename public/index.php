@@ -1,9 +1,5 @@
 <?php
 
-use PHPPatterns\Routing\Router;
-use PHPPatterns\Support\File;
-use PHPPatterns\Views\View;
-
 $config = require('../config.php');
 require('../functions.php');
 

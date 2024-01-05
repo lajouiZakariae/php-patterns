@@ -10,4 +10,6 @@
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ public/index.php [L]
 
+    DirectoryIndex public/index.php
+
 </IfModule>
