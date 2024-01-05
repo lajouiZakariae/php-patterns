@@ -2,8 +2,12 @@
 
 namespace PHPPatterns\Http;
 
+use PHPPatterns\Support\Singleton;
+
 class Request
 {
+    use Singleton;
+
     private array $inputs = [];
 
     private array $params = [];

@@ -38,6 +38,12 @@ class Session
         return !isset($_SESSION[$key]);
     }
 
+    public static function exists(string $key): bool
+    {
+        self::instance();
+        return !self::missing($key);
+    }
+
     public static function id(): string
     {
         self::instance();

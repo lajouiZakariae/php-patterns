@@ -35,7 +35,7 @@ class Route
     {
         if (is_array($this->callback)) {
             [$class, $method] = $this->callback;
-            return call_user_func([new $class(), $method], new Request);
+            return call_user_func([new $class(), $method], Request::instance());
         }
         return call_user_func($this->callback);
     }
